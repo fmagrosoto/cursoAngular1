@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="miapp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lecciones de Angular 1</title>
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/estilos.css">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAtLS0T6enp/+qqqr/t7e3/P39/RUAAAAAAAAAsgAAAI8AAAAAsrKyont7e/94eHj/ampq/62trTUAAAAAAAAAAJaWllCdnZ3/ra2t/8fHx9v///8A////BUBAQHl7e3t3////Ary8vH9wcHD/Z2dn/1lZWf+kpKQ1AAAAAAAAAACzs7NQtra2/7Ozs//S0tKsAAAAAP///wAnJyd9Z2dnoP///wzT09N1dXV1/3V1df8oKCj/c3NzNQAAAAAAAAAAnp6eUKWlpf+ampr/0dHRgwAAAAD///8G////jvPz85P///+M////+gAAAP8AAAD/AAAA+pubmywAAAAAAAAAAL+/vzirq6vvoKCg/9HR0Xrf398T////wv////v////9////+83Nzf8AAAD8OTk5mrm5uR0AAAAAAAAAAAAAAAAAAAAA+/v7EtjY2KnBwcG79/f3nv////////////////Ly8v/5+fn/urq6WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AYmJig/////D///////////////HY2Nj8/////////2QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///yL////3////Vf///8j///+e////8P////7///+1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///wD///+U/////f///5r////X////3P////3////a////+uTk5BEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8D////vv/////IyMj0zMzM6f///8X////xp6en/svLy/+xsbGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////Kc/Pz9//////////8f///0H///+l////uv///+z+/v7/EhISuAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///w0AAADBt7e3//////n///8y////SP///23////s/////wAAANX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjTk5Of//////u7u7q6Ojo7O6urrh3Nzc/6+vr/8AAADT////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg4OCwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUlJQDAAAAsAAAAP8AAAD/AAAA/wAAAP8AAAD/Pz8/j////wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKurqwQAAACAAAAA5QAAAPcAAADcAAAAcb6+vgEAAAAAAAAAAAAAAAAAAAAAgkEAAIABAACEAQAAhAEAAIADAADADwAA4A8AAPAPAADgBwAA4AcAAOAHAADgAwAA8AMAAPAHAADwBwAA+A8AAA==" rel="icon" type="image/x-icon">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Cursos Angular 1</a>
+      </div>
+    </div>
+  </nav>
+    
+  <div class="container" ng-controller="formCtrl">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Validar formulario</h1>
+
+        <form id="formV" autocomplete="off" name="formV" novalidate ng-submit="onSubmit(formV.$valid)">
+            <div class="form-group" 
+            ng-class="{
+                'has-error':!formV.nombre.$valid && (!formV.$pristine || formV.$submitted),
+                'has-success':formV.nombre.$valid && (!formV.$pristine || formV.$submitted),
+                }">
+                <label for="nombre" class="control-label">Nombre</label>
+                <input type="text" 
+                id="nombre" 
+                class="form-control" 
+                ng-model="f.nombre" 
+                name="nombre" 
+                required>
+
+                <p class="help-block" 
+                ng-show="formV.nombre.$error.required && (!formV.$pristine || formV.$submitted)">
+                    Necesita ingresar su nombre.
+                </p>
+
+                <pre>Validar? {{ formV.nombre.$error | json }}</pre>
+                <pre>Valido? {{ formV.nombre.$valid }}</pre>
+                <pre>Pristine? {{ formV.$pristine }}</pre>
+                <pre>Enviado? {{ formV.$submitted }}</pre>
+            </div>
+            <div class="form-group" 
+            ng-class="{
+                'has-error':!formV.correo.$valid && (!formV.$pristine || formV.$submitted),
+                'has-success':formV.correo.$valid && (!formV.$pristine || formV.$submitted),
+                }">
+                <label for="correo" class="control-label">Correo</label>
+                <input type="email" 
+                id="correo" 
+                class="form-control" 
+                ng-model="f.correo" 
+                name="correo" 
+                required>
+
+                <p class="help-block" 
+                ng-show="formV.correo.$error.required && (!formV.$pristine || formV.$submitted)">
+                    Este campo es obligatorio.
+                </p>
+
+                <p class="help-block" 
+                ng-show="formV.correo.$error.email && (!formV.$pristine || formV.$submitted)">
+                    El correo necesita una @ y que sea válido.
+                </p>
+            </div>
+            <div class="form-group" 
+            ng-class="{
+                'has-error':!formV.user.$valid && (!formV.$pristine || formV.$submitted),
+                'has-success':formV.user.$valid && (!formV.$pristine || formV.$submitted),
+                }">
+                <label for="user" class="control-label">Usuario</label>
+                <input type="text" 
+                id="user" 
+                class="form-control" 
+                ng-model="f.user" 
+                name="user" 
+                required>
+
+                <p class="help-block" 
+                ng-show="formV.user.$error.required && (!formV.$pristine || formV.$submitted)">
+                    Necesita ingresar un nombre de usuario.
+                </p>
+            </div>
+            <div class="form-group" 
+            ng-class="{
+                'has-error':!formV.edad.$valid && (!formV.$pristine || formV.$submitted),
+                'has-success':formV.edad.$valid && (!formV.$pristine || formV.$submitted),
+                }">
+                <label for="edad" class="control-label">Edad</label>
+                <input type="number" 
+                id="edad" 
+                class="form-control" 
+                ng-model="f.edad" 
+                name="edad" min="18" max="99" value="18" 
+                required>
+
+                <p class="help-block" 
+                ng-show="formV.edad.$error.required && (!formV.$pristine || formV.$submitted)">
+                    Necesita introducir su edad.
+                </p>
+
+                <p class="help-block" 
+                ng-show="formV.edad.$error.number && (!formV.$pristine || formV.$submitted)">
+                    La edad debe de contener solo números.
+                </p>
+
+                <p class="help-block" 
+                ng-show="formV.edad.$error.min && (!formV.$pristine || formV.$submitted)">
+                    Debes de ser mayor de edad.
+                </p>
+
+                <p class="help-block" 
+                ng-show="formV.edad.$error.max && (!formV.$pristine || formV.$submitted)">
+                    Debes de ser menor a 100 años.
+                </p>
+
+                <pre>{{ formV.edad.$error }}</pre>
+            </div>
+            <div class="form-group" 
+            ng-class="{
+                'has-error':!formV.sexo.$valid && (!formV.$pristine || formV.$submitted),
+                'has-success':formV.sexo.$valid && (!formV.$pristine || formV.$submitted),
+                }">
+                <label for="sexo" class="control-label">Sexo</label>
+                <select name="sexo" class="form-control" required ng-model="f.sexo">
+                    <option value="">Seleccione uno...</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                </select>
+
+                <p class="help-block" 
+                ng-show="formV.sexo.$error.required && (!formV.$pristine || formV.$submitted)">
+                    Necesita seleccionar un género.
+                </p>
+            </div>
+            <div class="form-group" 
+            ng-class="{
+                'has-error':!formV.pwd.$valid && (!formV.$pristine || formV.$submitted),
+                'has-success':formV.pwd.$valid && (!formV.$pristine || formV.$submitted),
+                }">
+                <label for="pwd" class="control-label">Contraseña</label>
+                <input type="password" 
+                id="pwd" 
+                class="form-control" 
+                ng-model="f.pwd" 
+                name="pwd" 
+                required>
+
+                <p class="help-block" 
+                ng-show="formV.pwd.$error.required && (!formV.$pristine || formV.$submitted)">
+                    Necesita ingresar la contraseña.
+                </p>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                <span class="glyphicon glyphicon-send"></span>&nbsp;
+                Enviar formulario</button>
+            </div>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <pre>{{ f | json }}</pre>
+        <pre>{{ formV | json }}</pre>          
+      </div>
+    </div>
+  </div>
+
+  <footer class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>Curso tomado por Fernando Magrosoto</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+  crossorigin="anonymous"></script>
+  <script src="./js/02_app.js"></script>
+</body>
+</html>
